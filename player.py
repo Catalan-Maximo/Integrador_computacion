@@ -1,3 +1,5 @@
+import random
+
 class Player:
     def __init__(self, name, char_class, health, strength, defense, level=1):
         self.name = name
@@ -55,14 +57,31 @@ class Player:
 class Guerrero(Player):
     def __init__(self):
         name = input("Ingrese el nombre de su Guerrero: ")
-        super().__init__(name, "Guerrero", 100, 15, 10)
+        super().__init__(name, "Guerrero", 70, 15, 8)
 
 class Mago(Player):
     def __init__(self):
         name = input("Ingrese el nombre de su Mago: ")
-        super().__init__(name, "Mago", 70, 20, 5)
+        super().__init__(name, "Mago", 50, 20, 6)
 
 class Arquero(Player):
     def __init__(self):
         name = input("Ingrese el nombre de su Arquero: ")
-        super().__init__(name, "Arquero", 80, 12, 8)
+        super().__init__(name, "Arquero", 60, 12, 4)
+
+def player_selection():
+    print("Selecciona tu personaje:")
+    print("1. Guerrero")
+    print("2. Mago")
+    print("3. Arquero")
+    player_class = input("Elige una opción: ")
+
+    if player_class == "1":
+        player1 = Guerrero()
+    elif player_class == "2":
+        player1 = Mago()
+    elif player_class == "3":
+        player1 = Arquero()
+    else:
+        print("Opción inválida. Inténtalo de nuevo.")
+    return player1

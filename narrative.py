@@ -12,10 +12,13 @@ class Narrative:
                "Tu viaje comienza en la aldea de los aventureros. Aquí, te reunirás con "
                "otros héroes para planear tu travesía hacia la Cueva de las Brujas.",
             2: "Capítulo 2: Enfrentando a los muertos\n\n"
-               "Después de superar la Cueva de las Brujas, te diriges a la Tumba de tus Sueños, "
+               "Después de superar la Cueva de las Brujas te encuentras una aldea"
+               "donde un habitante se ofrece como ayuda. Luego te diriges a la Tumba de tus Sueños, "
                "donde los no-muertos te desafiarán en cada esquina.",
             3: "Capítulo 3: La batalla final\n\n"
-               "Finalmente, has llegado al corazón de la oscuridad. Los Orcos y sus demonios te esperan "
+               "Finalmente, has llegado al corazón de la oscuridad,"
+               "ayudado por el habitante de la aldea y un "
+               "explorador de la Cueva de las Brujas. Los Orcos y sus demonios te esperan "
                "en una batalla que decidirá el destino del mundo."
         }
 

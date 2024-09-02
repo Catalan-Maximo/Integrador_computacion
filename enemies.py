@@ -19,54 +19,42 @@ class Enemy:
 class Goblin(Enemy):
     def __init__(self, level):
         if level == 1:
-            super().__init__("Goblin", 20, 6, 3, level)
-        elif level == 2:
-            super().__init__("Goblin", 30, 8, 5, level)
-        elif level == 3:
-            super().__init__("Goblin", 40, 10, 7, level)
+            super().__init__("Goblin", 10, 8, 5, level)
         else:
             raise ValueError("Nivel de Goblin fuera del rango permitido")
 
 class Skeleton(Enemy):
     def __init__(self, level):
         if level == 1:
-            super().__init__("Skeleton", 30, 18, 5, level)
+            super().__init__("Skeleton", 15, 10, 7, level)
         elif level == 2:
-            super().__init__("Skeleton", 40, 20, 7, level)
-        elif level == 3:
-            super().__init__("Skeleton", 50, 22, 9, level)
+            super().__init__("Skeleton", 25, 12, 9, level)
         else:
             raise ValueError("Nivel de Skeleton fuera del rango permitido")
 
 class Witch(Enemy):
     def __init__(self, level):
         if level == 1:
-            super().__init__("Witch", 40, 20, 7, level)
+            super().__init__("Witch", 20, 12, 7, level)
         elif level == 2:
-            super().__init__("Witch", 50, 22, 9, level)
+            super().__init__("Witch", 25, 14, 9, level)
         elif level == 3:
-            super().__init__("Witch", 60, 24, 11, level)
+            super().__init__("Witch", 30, 16, 11, level)
         else:
             raise ValueError("Nivel de Witch fuera del rango permitido")
 
 class Demon(Enemy):
     def __init__(self, level):
-        if level == 1:
-            super().__init__("Demon", 50, 22, 11, level)
-        elif level == 2:
-            super().__init__("Demon", 60, 24, 14, level)
+        if level == 2:
+            super().__init__("Demon", 35, 18, 12, level)
         elif level == 3:
-            super().__init__("Demon", 70, 26, 17, level)
+            super().__init__("Demon", 40, 20, 14, level)
         else:
             raise ValueError("Nivel de Demon fuera del rango permitido")
 
 class Orco(Enemy):
     def __init__(self, level):
-        if level == 1:
-            super().__init__("Orco", 60, 26, 17, level)
-        elif level == 2:
-            super().__init__("Orco", 70, 28, 20, level)
-        elif level == 3:
-            super().__init__("Orco", 80, 30, 22, level)
+        if level == 3:
+            super().__init__("Orco", 50, 22, 16, level)
         else:
             raise ValueError("Nivel de Orco fuera del rango permitido")
