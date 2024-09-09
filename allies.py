@@ -22,3 +22,4 @@ class aliado1(Ally):
 class aliado2(Ally):
     def __init__(self):
         super().__init__("Aliado de la Dungeon", 50, 15, 8, 1)
+ #instancias para aliados

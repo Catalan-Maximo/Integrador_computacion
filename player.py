@@ -85,3 +85,5 @@ def player_selection():
     else:
         print("Opción inválida. Inténtalo de nuevo.")
     return player1
+
+#clases en archivos diferentes

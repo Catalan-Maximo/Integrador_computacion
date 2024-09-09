@@ -37,3 +37,4 @@ class Narrative:
             print(self.chapters[self.current_chapter])
         else:
             print("Has completado la historia. ¡Felicitaciones, héroe!")
+#constantes.py

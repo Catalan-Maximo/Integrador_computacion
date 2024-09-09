@@ -53,3 +53,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+#gamecontroler.py para controlar todo
+#guardar dungeons en listas
+#integrar items
