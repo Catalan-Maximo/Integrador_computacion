@@ -1,10 +1,11 @@
 from allies import Ally
+from enemies import Enemy
 
 # Aliados
-aliado_village = Ally("Aliado de la Aldea", 40, 10, 5, 1)
-aliado_dungeon = Ally("Aliado de la Dungeon", 50, 15, 8, 1)
+ally_village = Ally("Aliado de la Aldea", 40, 10, 5, 1)
+ally_dungeon = Ally("Aliado de la Dungeon", 50, 15, 8, 1)
 
-# Introducción de la historia
+# Narrativa
 introduccion = """
     En un reino olvidado, las fuerzas del mal han despertado. 
     Eres parte de un grupo de héroes que ha sido convocado para detener a 
@@ -12,7 +13,6 @@ introduccion = """
     a la verdad detrás de esta oscuridad. ¡Prepárate para la aventura de tu vida!
 """
 
-# Capítulos de la historia
 capitulos = {
     1: "Capítulo 1: La llamada a la aventura\n\n"
        "Tu viaje comienza en la aldea de los aventureros. Aquí, te reunirás con "
@@ -29,13 +29,27 @@ capitulos = {
        "Los Orcos y sus demonios te esperan en una batalla que decidirá el destino del mundo."
 }
 
+final = "Has completado la historia. ¡Felicitaciones, héroe!"
+
 # Items
 potion = {"name": "Poción de Salud", "effect": "heal"}
 sword = {"name": "Espada de Fuerza", "effect": "boost_strength"}
 amulet = {"name": "Amuleto de Defensa", "effect": "boost_defense"}
 
+# Combate
+win = "¡Has ganado la batalla! Todos los enemigos han sido derrotados."
+lose = "Oh no, todos tus personajes han sido derrotados. Fin del juego."
+start_combat = "Te encontraste con un grupo de enemigos ¡comienza la batalla!"
 
+#Enemigos
+# Instancias de enemigos
+goblin_l1 = Enemy("Goblin", 10, 8, 5, 1)
+skeleton_l1 = Enemy("Skeleton", 15, 10, 7, 1)
+skeleton_l2 = Enemy("Skeleton", 25, 12, 9, 2)
+witch_l1 = Enemy("Witch", 20, 12, 7, 1)
+witch_l2 = Enemy("Witch", 25, 14, 9, 2)
+witch_l3 = Enemy("Witch", 30, 16, 11, 3)
+demon_l1 = Enemy("Demon", 35, 18, 12, 2)
+demon_l2 = Enemy("Demon", 40, 20, 14, 3)
+orco_l1 = Enemy("Orco", 50, 22, 16, 3)
 
-
-
-#falta terminar de pasar las constantes de dungeons, combate y items, no lo termine porque se me quedo sin bateria la compu :)

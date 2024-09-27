@@ -1,4 +1,5 @@
 import random
+from constantes import win, lose, start_combat
 
 class Combat:
     def __init__(self, characters, enemies, allies=None):
@@ -16,7 +17,6 @@ class Combat:
                 if enemy.health <= 0:
                     print(f"{enemy.name} ha sido derrotado!")
                     self.enemies.remove(enemy)
-                    character.gain_experience(50)  # Dar experiencia por derrotar a un enemigo
 
     def ally_turn(self):
         for ally in self.allies:
@@ -46,15 +46,17 @@ class Combat:
 
     def is_battle_over(self):
         if all(enemy.health <= 0 for enemy in self.enemies):
-            print("¡Has ganado! Todos los enemigos han sido derrotados.")
+            print(win)
+            for character in self.characters:
+                character.gain_experience(75)  # Dar experiencia por ganar ronda
             return True
         if all(character.health <= 0 for character in self.characters):
-            print("Oh no, todos tus personajes han sido derrotados. Fin del juego.")
+            print(lose)
             return True
         return False
     
     def start_battle(self):
-        print("Te encontraste con un grupo de enemigos ¡comienza la batalla!")
+        print(start_combat)
         while not self.is_battle_over():
             self.player_turn()
             if not self.is_battle_over() and self.allies:

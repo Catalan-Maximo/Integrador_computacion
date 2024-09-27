@@ -16,8 +16,3 @@ class Item:
 
     def __str__(self):
         return f"{self.name} ({self.effect})"
-
-
-potion = Item("Poción de Salud", "heal")
-sword = Item("Espada de Fuerza", "boost_strength")
-amulet = Item("Amuleto de Defensa", "boost_defense")

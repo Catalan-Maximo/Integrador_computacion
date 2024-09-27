@@ -1,4 +1,4 @@
-from constantes import introduccion, capitulos
+from constantes import introduccion, capitulos, final
 
 class Narrative:
     def __init__(self):
@@ -14,10 +14,10 @@ class Narrative:
         if self.current_chapter in self.chapters:
             print(self.chapters[self.current_chapter])
         else:
-            print("Has completado la historia. ¡Felicitaciones, héroe!")
+            print(final)
 
     def display_current_chapter(self):
         if self.current_chapter in self.chapters:
             print(self.chapters[self.current_chapter])
         else:
-            print("Has completado la historia. ¡Felicitaciones, héroe!")
+            print(final)

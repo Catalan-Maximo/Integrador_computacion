@@ -3,9 +3,9 @@ from combat import Combat
 from dungeons import Dungeon
 import enemies 
 from Items import Item
-from player import Guerrero, Mago, Arquero, player_selection
+from player import player_selection
 import random
-from allies import aliado1, aliado2
+from constantes import ally_dungeon, ally_village
 
 
 def main():
@@ -15,8 +15,8 @@ def main():
     # Mostrar introducción
     narrativa.display_introduction()
     player1 = player_selection()
-    aliado_aldea = aliado1()
-    aliado_dungeon = aliado2()
+    aliado_aldea = ally_village
+    aliado_dungeon = ally_dungeon
     narrativa.display_current_chapter()
 
     dungeon1 = Dungeon(name="Cueva de las Brujas", level_diff=1, num_enemies=3, num_allies=0)
@@ -55,5 +55,6 @@ if __name__ == "__main__":
     main()
 
 #gamecontroler.py para controlar todo
-#guardar dungeons en listas
+#pasar cosas de main a gamecontroller (Dungeons, combat)
+#arreglar flujo de combate(temas de vida y no seguir si moriste)
 #integrar items
