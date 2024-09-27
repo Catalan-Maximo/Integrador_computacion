@@ -15,11 +15,6 @@ class Ally:
         return (f"{self.name}: Salud {self.health}, "
                 f"Fuerza {self.strength}, Defensa {self.defense}")
     
-class aliado1(Ally):
-    def __init__(self) :
-        super().__init__("Aliado de la Aldea", 40, 10, 5, 1)
 
-class aliado2(Ally):
-    def __init__(self):
-        super().__init__("Aliado de la Dungeon", 50, 15, 8, 1)
- #instancias para aliados
+
+

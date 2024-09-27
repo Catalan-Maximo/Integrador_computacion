@@ -13,7 +13,6 @@ class Item:
         elif self.effect == "boost_defense":
             character.defense += 5
             print(f"La defensa de {character.name} aumentó en 5 puntos.")
-        # Puedes agregar más efectos aquí si lo necesitas
 
     def __str__(self):
         return f"{self.name} ({self.effect})"

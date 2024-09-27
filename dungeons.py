@@ -12,8 +12,7 @@ class Dungeon:
 
     def generar_enemigos(self):
         import random
-        # Selecciona enemigos según el nivel del dungeon
-        posibles_enemigos = [] # Lista de posibles clases de enemigos
+        posibles_enemigos = []
         if self.level_diff == 1:
             posibles_enemigos = [Goblin, Skeleton, Witch]
         elif self.level_diff == 2:
@@ -22,13 +21,12 @@ class Dungeon:
             posibles_enemigos = [Witch, Demon, Orco] 
         for _ in range(self.num_enemies):
             enemigo_clase = random.choice(posibles_enemigos)
-            enemigo = enemigo_clase(self.level_diff)  # Pasa el nivel del dungeon al enemigo
+            enemigo = enemigo_clase(self.level_diff)
             self.enemies.append(enemigo)
     
     def generar_aliados(self):
         import random
-        # Selecciona aliados según el nivel del dungeon
-        posibles_aliados = [] # Lista de posibles clases de aliados
+        posibles_aliados = []
         if self.level_diff == 1:
             pass
         elif self.level_diff == 2:
@@ -37,12 +35,11 @@ class Dungeon:
             posibles_aliados = [aliado1, aliado2]
             
         if self.level_diff == 3 and self.num_allies > 1:
-        # Asegurarse de no seleccionar más aliados de los disponibles
             num_allies_to_generate = min(self.num_allies, len(posibles_aliados))
             aliados_seleccionados = random.sample(posibles_aliados, num_allies_to_generate)
         else:
             aliados_seleccionados = [random.choice(posibles_aliados) for _ in range(self.num_allies)]
     
         for aliado_clase in aliados_seleccionados:
-            aliado = aliado_clase()  # No pasar el nivel del dungeon al aliado
+            aliado = aliado_clase()
             self.allies.append(aliado)
