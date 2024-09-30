@@ -14,3 +14,6 @@ class Ally:
     def __str__(self):
         return (f"{self.name}: Salud {self.health}, "
                 f"Fuerza {self.strength}, Defensa {self.defense}")
+
+
+#meter esto en player y que los ally herede de player

@@ -63,3 +63,5 @@ class Combat:
                 self.ally_turn()
             if not self.is_battle_over():
                 self.enemy_turn()
+
+#hacer una unica funcion y que cambie el parametro nomas porque se repite mucho el texto

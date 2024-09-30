@@ -75,3 +75,4 @@ def player_selection():
 
     return player1
 #Preguntar si pasamos las instancias de jugadores a constantes
+#la de los magos y los mensajes si, lo otro nonlocalplayer seleccion dentro de game controles

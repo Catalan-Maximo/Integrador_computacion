@@ -58,3 +58,4 @@ if __name__ == "__main__":
 #pasar cosas de main a gamecontroller (Dungeons, combat)
 #arreglar flujo de combate(temas de vida y no seguir si moriste)
 #integrar items
+#que no se repitan tanta contidad de veces por eje los dunjeon, haciendo la modularidad con funcionesss

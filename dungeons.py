@@ -42,3 +42,4 @@ class Dungeon:
         for aliado in aliados_seleccionados:
             self.allies.append(aliado)
 #preguntar a profe si meter como constantes los niveles de dificultad
+#si y poner los valores de nivel 1 easy mediun y tatata
