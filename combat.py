@@ -7,35 +7,30 @@ class Combat:
         self.enemies = enemies
         self.allies = allies if allies is not None else []
 
-    def player_turn(self):
-        for character in self.characters:
-            if character.health > 0:
-                print(f"\nEs el turno de {character.name}.")
-                enemy = self.select_enemy()
-                damage = character.attack(enemy)
-                print(f"{character.name} le hizo {damage} de daño a {enemy.name}.")
-                if enemy.health <= 0:
-                    print(f"{enemy.name} ha sido derrotado!")
-                    self.enemies.remove(enemy)
+def take_turn(self, participants, opponents, participant_type):
+    for participant in participants:
+        if participant.health > 0:
+            if participant_type == "player":
+                print(f"\nEs el turno de {participant.name}.")
+                opponent = self.select_enemy()
+            else:
+                opponent = random.choice(opponents)
+            
+            damage = participant.attack(opponent)
+            print(f"{participant.name} atacó a {opponent.name} y le hizo {damage} de daño.")
+            
+            if opponent.health <= 0:
+                print(f"{opponent.name} ha sido derrotado!")
+                opponents.remove(opponent)
 
-    def ally_turn(self):
-        for ally in self.allies:
-            if ally.health > 0:
-                enemy = random.choice(self.enemies)
-                damage = ally.attack(enemy)
-                print(f"{ally.name} atacó a {enemy.name} y le hizo {damage} de daño.")
-                if enemy.health <= 0:
-                    print(f"{enemy.name} ha sido derrotado!")
-                    self.enemies.remove(enemy)
-
-    def enemy_turn(self):
-        for enemy in self.enemies:
-            if enemy.health > 0:
-                character = random.choice(self.characters)
-                damage = enemy.attack(character)
-                print(f"{enemy.name} atacó a {character.name} y le hizo {damage} de daño.")
-                if character.health <= 0:
-                    print(f"{character.name} ha sido derrotado!")
+    def start_battle(self):
+        print(start_combat)
+        while not self.is_battle_over():
+            self.take_turn(self.characters, self.enemies, "player")
+            if not self.is_battle_over() and self.allies:
+                self.take_turn(self.allies, self.enemies, "ally")
+            if not self.is_battle_over():
+                self.take_turn(self.enemies, self.characters, "enemy")
 
     def select_enemy(self):
         print("Enemigos disponibles:")
@@ -54,14 +49,7 @@ class Combat:
             print(lose)
             return True
         return False
-    
-    def start_battle(self):
-        print(start_combat)
-        while not self.is_battle_over():
-            self.player_turn()
-            if not self.is_battle_over() and self.allies:
-                self.ally_turn()
-            if not self.is_battle_over():
-                self.enemy_turn()
+
+
 
 #hacer una unica funcion y que cambie el parametro nomas porque se repite mucho el texto

@@ -53,4 +53,11 @@ demon_l1 = Enemy("Demon", 35, 18, 12, 2)
 demon_l2 = Enemy("Demon", 40, 20, 14, 3)
 orco_l1 = Enemy("Orco", 50, 22, 16, 3)
 
+#Dungeons
+#dificultades
+Easy = 1
+Medium = 2
+Hard = 3
+
+
 #nombre de todas las constantes en MAYUSCULAS

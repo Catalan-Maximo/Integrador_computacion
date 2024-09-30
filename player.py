@@ -53,26 +53,4 @@ class Player:
                 f"Fuerza {self.strength}, Defensa {self.defense}, Experiencia {self.experience}/"
                 f"{self.experience_to_next_level}")
 
-def player_selection():
-    print("Selecciona tu personaje:")
-    print("1. Guerrero")
-    print("2. Mago")
-    print("3. Arquero")
-    player_class = input("Elige una opción: ")
-
-    if player_class == "1":
-        name = input("Ingrese el nombre de su Guerrero: ")
-        player1 = Player(name, "Guerrero", 70, 15, 8)
-    elif player_class == "2":
-        name = input("Ingrese el nombre de su Mago: ")
-        player1 = Player(name, "Mago", 50, 20, 6)
-    elif player_class == "3":
-        name = input("Ingrese el nombre de su Arquero: ")
-        player1 = Player(name, "Arquero", 60, 12, 4)
-    else:
-        print("Opción inválida. Inténtalo de nuevo.")
-        return None
-
-    return player1
-#Preguntar si pasamos las instancias de jugadores a constantes
-#la de los magos y los mensajes si, lo otro nonlocalplayer seleccion dentro de game controles
+#Heredar de player a enemi y allies
