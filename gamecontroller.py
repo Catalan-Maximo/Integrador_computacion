@@ -38,39 +38,51 @@ def game_flow():
     aliado_dungeon = Ally_dungeon
     narrativa.display_current_chapter()
 
-    dungeon1 = Dungeon(name="Cueva de las Brujas", level_diff=1, num_enemies=3, num_allies=0)
-    dungeon1.generar_enemigos()
-    dungeon1.generar_aliados()
+    while player1.health > 0:
+        dungeon1 = Dungeon(name="Cueva de las Brujas", level_diff=1, num_enemies=3, num_allies=0)
+        dungeon1.generar_enemigos()
+        dungeon1.generar_aliados()
+        combat = Combat(characters=[player1], enemies=dungeon1.enemies, player1=player1)
+        combat.start_battle()
+        if player1.health <= 0:
+            break
+        else:
+            narrativa.advance_chapter()
+            dungeon2 = Dungeon(name="La tumba de tus sueños", level_diff=2, num_enemies=4, num_allies=1)
+            dungeon2.generar_enemigos()
+            dungeon2.generar_aliados()
+            combat = Combat(characters=[player1, aliado_aldea], enemies=dungeon2.enemies, player1=player1)
+            combat.start_battle()
+            if player1.health <= 0:
+                break
+            else:
+                print("Lamentablemente, ésta mazmorra no es como la anterior")
+                combat.start_battle()
+                if player1.health <= 0:
+                    break
+                else:
+                    narrativa.advance_chapter()
+                    dungeon3 = Dungeon(name="Orcos y sus demonios", level_diff=3, num_enemies=5, num_allies=2)
+                    dungeon3.generar_enemigos()
+                    dungeon3.generar_aliados()
+                    combat = Combat(characters=[player1, aliado_aldea, aliado_dungeon], enemies=dungeon3.enemies, player1=player1)
+                    combat.start_battle()
+                    if player1.health <= 0:
+                        break
+                    else:
+                        print("Esa solo fue la primera oleada de enemigos, preparate")
+                        combat.start_battle()
+                        if player1.health <= 0:
+                            break
+                        else:
+                            print("Habiendo sobrevivido a la segunda oleada, te enfrentas a la última, para salvar el mundo")
+                            combat.start_battle()
+                            if player1.health <= 0:
+                                break
+                            else:
+                                narrativa.advance_chapter()
+                                break
 
-    # Combate
-    combat = Combat(characters=[player1], enemies=dungeon1.enemies, player1=player1)
-    combat.start_battle()
-    
-    # Avanzar al siguiente capítulo
-    narrativa.advance_chapter()
-
-    dungeon2 = Dungeon(name="La tumba de tus sueños", level_diff=2, num_enemies=4, num_allies=1)
-    dungeon2.generar_enemigos()
-    dungeon2.generar_aliados()
-
-    combat = Combat(characters=[player1, aliado_aldea], enemies=dungeon2.enemies, player1=player1)
-    combat.start_battle()
-    combat.start_battle()
-
-    narrativa.advance_chapter()
-
-    dungeon3 = Dungeon(name="Orcos y sus demonios", level_diff=3, num_enemies=5, num_allies=2)
-    dungeon3.generar_enemigos()
-    dungeon3.generar_aliados()
-
-    combat = Combat(characters=[player1, aliado_aldea, aliado_dungeon], enemies=dungeon3.enemies, player1=player1)
-    combat.start_battle()
-    combat.start_battle()
-    combat.start_battle()
-
-    narrativa.advance_chapter()
-
-#arreglar flujo de combate(temas de vida y no seguir si moriste)
 #que no se repitan tanta contidad de veces por eje los dunjeon, haciendo la modularidad con funcionesss
 #hacer que si hay 2 enemigos(mismo tipo/nombre) solo ataque a 1
 #hacer que no quede vida en negativo
