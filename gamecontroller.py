@@ -3,7 +3,7 @@ from narrative import Narrative
 from combat import Combat
 from dungeons import Dungeon
 from Items import Item
-from constantes import ally_dungeon, ally_village
+from constantes import Ally_dungeon, Ally_village
 
 def player_selection():
     print("Selecciona tu personaje:")
@@ -34,8 +34,8 @@ def game_flow():
     # Mostrar introducción
     narrativa.display_introduction()
     player1 = player_selection()
-    aliado_aldea = ally_village
-    aliado_dungeon = ally_dungeon
+    aliado_aldea = Ally_village
+    aliado_dungeon = Ally_dungeon
     narrativa.display_current_chapter()
 
     dungeon1 = Dungeon(name="Cueva de las Brujas", level_diff=1, num_enemies=3, num_allies=0)
@@ -43,7 +43,7 @@ def game_flow():
     dungeon1.generar_aliados()
 
     # Combate
-    combat = Combat(characters=[player1], enemies=dungeon1.enemies)
+    combat = Combat(characters=[player1], enemies=dungeon1.enemies, player1=player1)
     combat.start_battle()
     
     # Avanzar al siguiente capítulo
@@ -53,7 +53,7 @@ def game_flow():
     dungeon2.generar_enemigos()
     dungeon2.generar_aliados()
 
-    combat = Combat(characters=[player1, aliado_aldea], enemies=dungeon2.enemies)
+    combat = Combat(characters=[player1, aliado_aldea], enemies=dungeon2.enemies, player1=player1)
     combat.start_battle()
     combat.start_battle()
 
@@ -63,7 +63,7 @@ def game_flow():
     dungeon3.generar_enemigos()
     dungeon3.generar_aliados()
 
-    combat = Combat(characters=[player1, aliado_aldea, aliado_dungeon], enemies=dungeon3.enemies)
+    combat = Combat(characters=[player1, aliado_aldea, aliado_dungeon], enemies=dungeon3.enemies, player1=player1)
     combat.start_battle()
     combat.start_battle()
     combat.start_battle()
@@ -71,11 +71,6 @@ def game_flow():
     narrativa.advance_chapter()
 
 #arreglar flujo de combate(temas de vida y no seguir si moriste)
-#integrar items
 #que no se repitan tanta contidad de veces por eje los dunjeon, haciendo la modularidad con funcionesss
-
-
-
-
-#IMPLEMETACION DE ITEMS
-#si la batalla termino y ganamos la funcion va a generar un numero aleatorio si el numero aleatorio es 1 te va a dar un objeto
+#hacer que si hay 2 enemigos(mismo tipo/nombre) solo ataque a 1
+#hacer que no quede vida en negativo

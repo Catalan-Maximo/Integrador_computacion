@@ -1,5 +1,5 @@
 
-from constantes import ally_dungeon, ally_village, goblin_l1, skeleton_l1, skeleton_l2, witch_l1, witch_l2, witch_l3, demon_l1, demon_l2, orco_l1, Easy, Medium, Hard
+from constantes import Ally_dungeon, Ally_village, Goblin_l1, Skeleton_l1, Skeleton_l2, Witch_l1, Witch_l2, Witch_l3, Demon_l1, Demon_l2, Orco_l1, Easy, Medium, Hard
 class Dungeon:
     def __init__(self, name, level_diff, num_enemies, num_allies):
         self.name = name
@@ -13,11 +13,11 @@ class Dungeon:
         import random
         posibles_enemigos = []
         if self.level_diff == Easy:
-            posibles_enemigos = [goblin_l1, skeleton_l1,witch_l1]
+            posibles_enemigos = [Goblin_l1, Skeleton_l1, Witch_l1]
         elif self.level_diff == Medium:
-            posibles_enemigos = [skeleton_l2, witch_l2, demon_l1]
+            posibles_enemigos = [Skeleton_l2, Witch_l2, Demon_l1]
         elif self.level_diff == Hard:
-            posibles_enemigos = [witch_l3, demon_l2, orco_l1] 
+            posibles_enemigos = [Witch_l3, Demon_l2, Orco_l1] 
         for _ in range(self.num_enemies):
             enemigo_clase = random.choice(posibles_enemigos)
             enemigo = enemigo_clase
@@ -29,9 +29,9 @@ class Dungeon:
         if self.level_diff == Easy:
             pass
         elif self.level_diff == Medium:
-            posibles_aliados = [ally_village]
+            posibles_aliados = [Ally_village]
         elif self.level_diff == Hard:
-            posibles_aliados = [ally_village, ally_dungeon]
+            posibles_aliados = [Ally_village, Ally_dungeon]
             
         if self.level_diff == Hard and self.num_allies > 1:
             num_allies_to_generate = min(self.num_allies, len(posibles_aliados))
@@ -41,5 +41,3 @@ class Dungeon:
     
         for aliado in aliados_seleccionados:
             self.allies.append(aliado)
-
-#preguntar a profe si meter como constantes los niveles de dificultad

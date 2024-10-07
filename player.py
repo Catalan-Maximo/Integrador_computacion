@@ -52,5 +52,3 @@ class Player:
         return (f"{self.name} ({self.char_class}) - Nivel {self.level}: Salud {self.health}, "
                 f"Fuerza {self.strength}, Defensa {self.defense}, Experiencia {self.experience}/"
                 f"{self.experience_to_next_level}")
-
-#Heredar de player a enemi y allies
