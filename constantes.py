@@ -58,3 +58,12 @@ Orco_l1 = Enemy("Orco", 50, 22, 16, 3)
 Easy = 1
 Medium = 2
 Hard = 3
+from dungeons import Dungeon #Da error a la hora de ponerlo arriba
+dungeon1 = Dungeon(name="Cueva de las Brujas", level_diff=1, num_enemies=3, num_allies=0)
+dungeon2 = Dungeon(name="La tumba de tus sueños", level_diff=2, num_enemies=4, num_allies=1)
+dungeon3 = Dungeon(name="Orcos y sus demonios", level_diff=3, num_enemies=5, num_allies=2)
+
+#gamecontroller
+interd2 = "Lamentablemente, ésta mazmorra no es como la anterior"
+interd3_1 = "Esa solo fue la primera oleada de enemigos, preparate"
+interd3_2 = "Habiendo sobrevivido a la segunda oleada, te enfrentas a la última, para salvar el mundo"

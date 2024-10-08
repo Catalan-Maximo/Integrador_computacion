@@ -55,3 +55,8 @@ class Combat:
             print(Lose)
             return True
         return False
+    
+#hacer que si hay 2 enemigos(mismo tipo/nombre) solo ataque a 1
+#hacer que no quede vida en negativo
+#Poner para que el jugador pueda elegir si quiere atacar o usar un item
+#Si elijo una opcion que no esta, no de error, sino que permita volver a elegir
