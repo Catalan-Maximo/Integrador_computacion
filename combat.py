@@ -9,21 +9,48 @@ class Combat:
         self.player1 = player1
         self.allies = allies if allies is not None else []
 
-    def take_turn(self, participants, opponents, participant_type):
+    def take_turn(self, participants, opponents, turn_type):
         for participant in participants:
             if participant.health > 0:
-                if participant_type == "player":
-                    print(f"\nEs el turno de {participant.name}.")
-                    opponent = self.select_enemy()
-                else:
+                if turn_type == "player":
+                    print(f"Es el turno de {participant.name}")
+                    while True:
+                        action = input("Elige una acción: 1. Atacar 2. Usar ítem: ")
+                        if action == "1":
+                            while True:
+                                try:
+                                    enemy = self.select_enemy()
+                                    break
+                                except (IndexError, ValueError):
+                                    print("Selección no válida. Por favor, elige de nuevo.")
+                            damage = participant.attack(enemy)
+                            print(f"{participant.name} atacó a {enemy.name} y le hizo {damage} de daño.")
+                            if enemy.health <= 0:
+                                print(f"{enemy.name} ha sido derrotado!")
+                                opponents.remove(enemy)
+                            break
+                        elif action == "2":
+                            while True:
+                                if participant.inventory:  # Verificar si hay ítems en el inventario
+                                    item = participant.choose_item_to_use()  # Seleccionar ítem
+                                    if item:  # Verificar si se seleccionó un ítem válido
+                                        participant.use_item(item)  # Usar el ítem
+                                        break
+                                    else:
+                                        print("Selección inválida.")
+                                else:
+                                    print("No tienes items, por favor ataca.")
+                                break
+                        else:
+                            print("Acción no válida. Por favor, elige de nuevo.")
+                    
+                elif turn_type == "enemy" or "ally": #preguntar profe, aliado no ataca automatico
                     opponent = random.choice(opponents)
-            
-                damage = participant.attack(opponent)
-                print(f"{participant.name} atacó a {opponent.name} y le hizo {damage} de daño.")
-            
-                if opponent.health <= 0:
-                    print(f"{opponent.name} ha sido derrotado!")
-                    opponents.remove(opponent)
+                    damage = participant.attack(opponent)
+                    print(f"{participant.name} atacó a {opponent.name} y le hizo {damage} de daño.")
+                    if opponent.health <= 0:
+                        print(f"{opponent.name} ha sido derrotado!")
+                        opponents.remove(opponent)
 
     def start_battle(self):
         print(Start_combat)
@@ -45,11 +72,16 @@ class Combat:
         if all(enemy.health <= 0 for enemy in self.enemies):
             print(Win)
             for character in self.characters:
-                character.gain_experience(75)  # Dar experiencia por ganar ronda
+                if character.name == self.player1.name:
+                    character.gain_experience(75)  # Dar experiencia por ganar ronda
+                else:
+                    pass
                 if character.name == self.player1.name and random.randint(1, 100) <= 20:  # 20% de probabilidad de obtener un ítem solo para player1
                     item = random.choice([Potion, Sword, Amulet])
                     print(f"{character.name} ha recibido un {item['name']}!")
                     character.add_item(Item(item["name"], item["effect"]))
+                else:
+                    pass
             return True
         if all(character.health <= 0 for character in self.characters):
             print(Lose)
@@ -57,6 +89,4 @@ class Combat:
         return False
     
 #hacer que si hay 2 enemigos(mismo tipo/nombre) solo ataque a 1
-#hacer que no quede vida en negativo
-#Poner para que el jugador pueda elegir si quiere atacar o usar un item
-#Si elijo una opcion que no esta, no de error, sino que permita volver a elegir
+#preguntar profe, aliado no ataca automatico

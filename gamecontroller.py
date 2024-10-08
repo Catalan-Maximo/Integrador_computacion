@@ -72,3 +72,5 @@ def game_flow():
 
     print(interd3_2)
     start_combat(player1, [aliado_aldea, aliado_dungeon], dungeon)
+
+    narrativa.advance_chapter()

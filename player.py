@@ -48,6 +48,22 @@ class Player:
         else:
             print(f"{self.name} no tiene {item.name} en su inventario.")
 
+    def choose_item_to_use(self):
+        if not self.inventory:
+            print(f"{self.name} no tiene ítems en su inventario.")
+            return
+
+        print("Elige un ítem para usar:")
+        for i, item in enumerate(self.inventory, 1):
+            print(f"{i}. {item.name}")
+
+        choice = int(input("Ingresa el número del ítem que deseas usar: ")) - 1
+
+        if 0 <= choice < len(self.inventory):
+            self.use_item(self.inventory[choice])
+        else:
+            print("Selección inválida.")
+
     def __str__(self):
         return (f"{self.name} ({self.char_class}) - Nivel {self.level}: Salud {self.health}, "
                 f"Fuerza {self.strength}, Defensa {self.defense}, Experiencia {self.experience}/"
