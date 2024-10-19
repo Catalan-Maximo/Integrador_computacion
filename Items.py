@@ -1,18 +1,21 @@
+# items.py
+
+from constantes import ITEMS
+
 class Item:
-    def __init__(self, name, effect):
+    def __init__(self, name):
         self.name = name
-        self.effect = effect
+        self.effect = self.get_effect()
 
-    def apply(self, character):
-        if self.effect == "heal":
-            character.health += 30
-            print(f"{character.name} se curó 30 puntos de salud.")
-        elif self.effect == "boost_strength":
-            character.strength += 5
-            print(f"La fuerza de {character.name} aumentó en 5 puntos.")
-        elif self.effect == "boost_defense":
-            character.defense += 5
-            print(f"La defensa de {character.name} aumentó en 5 puntos.")
+    def effect(self, player):
+        self.effect_function(player)
 
-    def __str__(self):
-        return f"{self.name} ({self.effect})"
+    def get_effect(self):
+        if self.name == 'Poción de Salud':
+            return lambda player: setattr(player, 'health', min(player.health + 20, 100))  # Asegura que la salud no exceda 100
+        elif self.name == 'Amuleto de Fuerza':
+            return lambda player: setattr(player, 'strength', player.strength + 5)
+        elif self.name == 'Escudo Mágico':
+            return lambda player: setattr(player, 'defense', player.defense + 5)
+        # Puedes agregar más ítems aquí
+        return lambda player: None  # En caso de que no haya un efecto

@@ -1,76 +1,63 @@
-from player import Player  
+# game_controller.py
+
+from player import Player
+from allies import Ally
+from combat import turn_based_combat
+from dungeons import Dungeon
 from narrative import Narrative
-from combat import Combat
-from constantes import Ally_village, Ally_dungeon, dungeon1, dungeon2, dungeon3, interd2, interd3_1, interd3_2
 
-def player_selection():
-    print("Selecciona tu personaje:")
-    print("1. Guerrero")
-    print("2. Mago")
-    print("3. Arquero")
-    player_class = input("Elige una opción: ")
+class GameController:
+    def __init__(self):
+        print("¡Bienvenido al juego de aventura!")
+        self.player = self.create_player()
+        self.allies = self.create_allies()
+        self.dungeon = self.create_dungeon()
+        self.narrative = Narrative()
+        self.current_battle = 0  # Para llevar el control de los combates
 
-    if player_class == "1":
-        name = input("Ingrese el nombre de su Guerrero: ")
-        player1 = Player(name, "Guerrero", 70, 15, 8)
-    elif player_class == "2":
-        name = input("Ingrese el nombre de su Mago: ")
-        player1 = Player(name, "Mago", 50, 20, 6)
-    elif player_class == "3":
-        name = input("Ingrese el nombre de su Arquero: ")
-        player1 = Player(name, "Arquero", 60, 12, 4)
-    else:
-        print("Opción inválida. Inténtalo de nuevo.")
-        return None
+    def create_player(self):
+        player_name = input("Por favor, ingresa el nombre de tu personaje: ")
+        
+        print("Selecciona la clase de tu personaje:")
+        print("1. Guerrero")
+        print("2. Mago")
+        print("3. Arquero")
 
-    return player1
+        class_choice = int(input("Selecciona el número de la clase: "))
+        
+        if class_choice == 1:
+            player_class = "Guerrero"
+        elif class_choice == 2:
+            player_class = "Mago"
+        elif class_choice == 3:
+            player_class = "Arquero"
+        else:
+            print("Selección inválida. Se asignará la clase Guerrero por defecto.")
+            player_class = "Guerrero"
 
-def start_combat(player1, aliados, dungeon):
-    dungeon.generar_enemigos()
-    dungeon.generar_aliados()
-    combat = Combat(characters=[player1] + aliados, enemies=dungeon.enemies, player1=player1)
-    combat.start_battle()
-    return player1.health > 0
+        return Player(player_name, player_class)
 
-def game_flow():
-    # Crear instancia de la narrativa
-    narrativa = Narrative()
+    def create_allies(self):
+        return [Ally("Aliado 1", "Guerrero"), Ally("Aliado 2", "Mago")]
 
-    # Mostrar introducción
-    narrativa.display_introduction()
-    player1 = player_selection()
-    aliado_aldea = Ally_village
-    aliado_dungeon = Ally_dungeon
-    narrativa.display_current_chapter()
+    def create_dungeon(self):
+        return Dungeon("Mazmorras de la Perdición")
 
-    # Primera mazmorra
-    dungeon = dungeon1
-    if not start_combat(player1, [], dungeon):
-        return
+    def start_game(self):
+        print(self.narrative.story)
+        self.start_battles()
 
-    narrativa.advance_chapter()
+    def start_battles(self):
+        battles = self.dungeon.get_battles()  # Método que devuelve los enemigos de cada combate
 
-    # Segunda mazmorra
-    dungeon = dungeon2
-    if not start_combat(player1, [aliado_aldea], dungeon):
-        return
+        for enemies in battles:
+            print(f"¡Prepárate para la batalla {self.current_battle + 1}!")
+            if not self.combat(enemies):
+                print("¡Has perdido la batalla! Fin del juego.")
+                return
+            self.current_battle += 1
 
-    print(interd2)
-    if not start_combat(player1, [aliado_aldea], dungeon):
-        return
+        print("¡Has completado todas las batallas! Felicitaciones.")
 
-    narrativa.advance_chapter()
-
-    # Tercera mazmorra
-    dungeon = dungeon3
-    if not start_combat(player1, [aliado_aldea, aliado_dungeon], dungeon):
-        return
-
-    print(interd3_1)
-    if not start_combat(player1, [aliado_aldea, aliado_dungeon], dungeon):
-        return
-
-    print(interd3_2)
-    start_combat(player1, [aliado_aldea, aliado_dungeon], dungeon)
-
-    narrativa.advance_chapter()
+    def combat(self, enemies):
+        return turn_based_combat(self.player, self.allies, enemies)

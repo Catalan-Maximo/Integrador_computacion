@@ -1,23 +1,8 @@
-from constantes import Introduccion, Capitulos, Final
+# narrative.py
 
 class Narrative:
     def __init__(self):
-        self.introduction = Introduccion
-        self.chapters = Capitulos
-        self.current_chapter = 1
+        self.story = self.get_story()
 
-    def display_introduction(self):
-        print(self.introduction)
-
-    def advance_chapter(self):
-        self.current_chapter += 1
-        if self.current_chapter in self.chapters:
-            print(self.chapters[self.current_chapter])
-        else:
-            print(Final)
-
-    def display_current_chapter(self):
-        if self.current_chapter in self.chapters:
-            print(self.chapters[self.current_chapter])
-        else:
-            print(Final)
+    def get_story(self):
+        return "¡Bienvenido al juego de rol! Estás en una aventura épica para derrotar al malvado jefe final."

@@ -1,70 +1,39 @@
+# player.py
+
 import random
 
 class Player:
-    def __init__(self, name, char_class, health, strength, defense, level=1):
+    def __init__(self, name, player_class):
         self.name = name
-        self.char_class = char_class
-        self.health = health
-        self.strength = strength
-        self.defense = defense
-        self.level = level
+        self.player_class = player_class
+        self.health = 100
+        self.strength = 10
+        self.defense = 5
+        self.level = 1
         self.experience = 0
-        self.experience_to_next_level = 100
-        self.inventory = []  # Inventario de ítems
+        self.items = []
 
-    def attack(self, enemy):
-        damage = max(0, self.strength - enemy.defense)
-        enemy.health -= damage
-        return damage
-
-    def gain_experience(self, amount):
-        self.experience += amount
-        print(f"{self.name} ganó {amount} puntos de experiencia.")
-        self.check_level_up()
-
-    def check_level_up(self):
-        while self.experience >= self.experience_to_next_level:
-            self.level_up()
+        if player_class == 'Guerrero':
+            self.strength += 5
+            self.defense += 5
+        elif player_class == 'Mago':
+            self.strength += 2
+            self.health += 20
+        elif player_class == 'Arquero':
+            self.strength += 3
+            self.defense += 2
 
     def level_up(self):
         self.level += 1
-        self.experience -= self.experience_to_next_level
-        self.experience_to_next_level = int(self.experience_to_next_level * 1.5)
-        self.health += 12
-        self.strength += 2
-        self.defense += 2
-        print(f"¡{self.name} subió al nivel {self.level}!")
-        print(f"Nuevos atributos: Salud {self.health}, Fuerza {self.strength}, Defensa {self.defense}")
+        self.health += random.randint(5, 10)
+        self.strength += random.randint(2, 5)
+        self.defense += random.randint(1, 3)
 
-    def add_item(self, item):
-        self.inventory.append(item)
-        print(f"{item.name} añadido al inventario de {self.name}.")
+    def take_damage(self, damage):
+        self.health -= max(0, damage - self.defense)
 
-    def use_item(self, item):
-        if item in self.inventory:
-            item.apply(self)
-            self.inventory.remove(item)
-            print(f"{self.name} usó {item.name}.")
-        else:
-            print(f"{self.name} no tiene {item.name} en su inventario.")
-
-    def choose_item_to_use(self):
-        if not self.inventory:
-            print(f"{self.name} no tiene ítems en su inventario.")
-            return
-
-        print("Elige un ítem para usar:")
-        for i, item in enumerate(self.inventory, 1):
-            print(f"{i}. {item.name}")
-
-        choice = int(input("Ingresa el número del ítem que deseas usar: ")) - 1
-
-        if 0 <= choice < len(self.inventory):
-            self.use_item(self.inventory[choice])
-        else:
-            print("Selección inválida.")
-
+    def is_alive(self):
+        return self.health > 0
+    
     def __str__(self):
-        return (f"{self.name} ({self.char_class}) - Nivel {self.level}: Salud {self.health}, "
-                f"Fuerza {self.strength}, Defensa {self.defense}, Experiencia {self.experience}/"
-                f"{self.experience_to_next_level}")
+        return f"{self.name} (Salud: {self.health})"

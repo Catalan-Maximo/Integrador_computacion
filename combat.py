@@ -1,92 +1,89 @@
 import random
-from Items import Item
-from constantes import Win, Lose, Start_combat, Sword, Potion, Amulet
 
-class Combat:
-    def __init__(self, characters, enemies, player1, allies=None):
-        self.characters = characters
-        self.enemies = enemies
-        self.player1 = player1
-        self.allies = allies if allies is not None else []
+def turn_based_combat(player, allies, enemies):
+    while True:
+        # Turno del jugador
+        if player.is_alive():
+            print("\nSelecciona una acción:")
+            print("1. Atacar")
+            print("2. Usar ítem")
+            
+            action = int(input("Selecciona el número de la acción: "))
 
-    def take_turn(self, participants, opponents, turn_type):
-        for participant in participants:
-            if participant.health > 0:
-                if turn_type == "player":
-                    print(f"Es el turno de {participant.name}")
-                    while True:
-                        action = input("Elige una acción: 1. Atacar 2. Usar ítem: ")
-                        if action == "1":
-                            while True:
-                                try:
-                                    enemy = self.select_enemy()
-                                    break
-                                except (IndexError, ValueError):
-                                    print("Selección no válida. Por favor, elige de nuevo.")
-                            damage = participant.attack(enemy)
-                            print(f"{participant.name} atacó a {enemy.name} y le hizo {damage} de daño.")
-                            if enemy.health <= 0:
-                                print(f"{enemy.name} ha sido derrotado!")
-                                opponents.remove(enemy)
-                            break
-                        elif action == "2":
-                            while True:
-                                if participant.inventory:  # Verificar si hay ítems en el inventario
-                                    item = participant.choose_item_to_use()  # Seleccionar ítem
-                                    if item:  # Verificar si se seleccionó un ítem válido
-                                        participant.use_item(item)  # Usar el ítem
-                                        break
-                                    else:
-                                        print("Selección inválida.")
-                                else:
-                                    print("No tienes items, por favor ataca.")
-                                break
-                        else:
-                            print("Acción no válida. Por favor, elige de nuevo.")
+            if action == 1:
+                while True:  # Ciclo para permitir múltiples intentos de ataque
+                    print("\nSelecciona un enemigo para atacar:")
+                    for i, enemy in enumerate(enemies):
+                        print(f"{i + 1}. {enemy.enemy_type} (Salud: {enemy.health})")
                     
-                elif turn_type == "enemy" or "ally": #preguntar profe, aliado no ataca automatico
-                    opponent = random.choice(opponents)
-                    damage = participant.attack(opponent)
-                    print(f"{participant.name} atacó a {opponent.name} y le hizo {damage} de daño.")
-                    if opponent.health <= 0:
-                        print(f"{opponent.name} ha sido derrotado!")
-                        opponents.remove(opponent)
-
-    def start_battle(self):
-        print(Start_combat)
-        while not self.is_battle_over():
-            self.take_turn(self.characters, self.enemies, "player")
-            if not self.is_battle_over() and self.allies:
-                self.take_turn(self.allies, self.enemies, "ally")
-            if not self.is_battle_over():
-                self.take_turn(self.enemies, self.characters, "enemy")
-
-    def select_enemy(self):
-        print("Enemigos disponibles:")
-        for i, enemy in enumerate(self.enemies):
-            print(f"{i + 1}. {enemy.name} - Salud: {enemy.health}")
-        choice = int(input("Elige un enemigo para atacar (1, 2, 3...): ")) - 1
-        return self.enemies[choice]
-
-    def is_battle_over(self):
-        if all(enemy.health <= 0 for enemy in self.enemies):
-            print(Win)
-            for character in self.characters:
-                if character.name == self.player1.name:
-                    character.gain_experience(75)  # Dar experiencia por ganar ronda
+                    target_index = int(input("Selecciona el número del enemigo: ")) - 1
+                    if 0 <= target_index < len(enemies):
+                        target = enemies[target_index]
+                        damage = player.strength
+                        target.take_damage(damage)
+                        print(f"{player.name} ataca a {target.enemy_type} causando {damage} de daño.")
+                        if not target.is_alive():
+                            print(f"{target.enemy_type} ha sido derrotado.")
+                            enemies.remove(target)
+                        break  # Salir del ciclo si el ataque es exitoso
+                    else:
+                        print("Selección inválida. Intenta de nuevo.")
+            
+            elif action == 2:
+                if player.items:  # Verifica si hay ítems disponibles
+                    while True:  # Ciclo para permitir múltiples intentos de usar ítem
+                        print("\nSelecciona un ítem para usar:")
+                        for i, item in enumerate(player.items):
+                            print(f"{i + 1}. {item.name}")
+                        
+                        item_index = int(input("Selecciona el número del ítem: ")) - 1
+                        if 0 <= item_index < len(player.items):
+                            item = player.items[item_index]
+                            item.effect(player)
+                            print(f"{player.name} usa {item.name}.")
+                            player.items.remove(item)
+                            break  # Salir del ciclo si el ítem se usa correctamente
+                        else:
+                            print("Selección inválida. Intenta de nuevo.")
                 else:
-                    pass
-                if character.name == self.player1.name and random.randint(1, 100) <= 20:  # 20% de probabilidad de obtener un ítem solo para player1
-                    item = random.choice([Potion, Sword, Amulet])
-                    print(f"{character.name} ha recibido un {item['name']}!")
-                    character.add_item(Item(item["name"], item["effect"]))
-                else:
-                    pass
+                    print(f"{player.name} no tiene ítems. Debes atacar.")
+
+            else:
+                print("Selección inválida. Intenta de nuevo.")
+
+        # Verificar si los enemigos han sido derrotados
+        if not enemies:
+            print("¡Has ganado la batalla!")
             return True
-        if all(character.health <= 0 for character in self.characters):
-            print(Lose)
+
+        # Turno de los aliados
+        for ally in allies:
+            if ally.is_alive() and enemies:
+                target = random.choice(enemies)
+                damage = ally.strength
+                target.take_damage(damage)
+                print(f"{ally.name} ataca a {target.enemy_type} causando {damage} de daño.")
+                if not target.is_alive():
+                    print(f"{target.enemy_type} ha sido derrotado.")
+                    enemies.remove(target)
+
+        # Verificar si los enemigos han sido derrotados
+        if not enemies:
+            print("¡Has ganado la batalla!")
             return True
-        return False
-    
-#hacer que si hay 2 enemigos(mismo tipo/nombre) solo ataque a 1
-#preguntar profe, aliado no ataca automatico
+
+        # Turno de los enemigos
+        for enemy in enemies:
+            if enemy.is_alive():
+                target = random.choice(allies + [player])
+                damage = enemy.strength
+                target.take_damage(damage)
+                print(f"{enemy.enemy_type} ataca a {target.name} causando {damage} de daño.")
+                if not target.is_alive():
+                    print(f"{target.name} ha sido derrotado.")
+                    allies.remove(target)
+
+        # Verificar si todos los personajes han sido derrotados
+        if not any(ally.is_alive() for ally in allies) and not player.is_alive():
+            print("¡Has perdido la batalla!")
+            return False
