@@ -32,6 +32,9 @@ class Player:
     def take_damage(self, damage):
         self.health -= max(0, damage - self.defense)
 
+    def has_items(self):
+        return len(self.items) > 0
+
     def is_alive(self):
         return self.health > 0
     

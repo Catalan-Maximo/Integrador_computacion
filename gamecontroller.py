@@ -1,10 +1,11 @@
 # game_controller.py
-
+import random
 from player import Player
 from allies import Ally
 from combat import turn_based_combat
 from dungeons import Dungeon
 from narrative import Narrative
+from Items import Item
 
 class GameController:
     def __init__(self):
@@ -14,6 +15,7 @@ class GameController:
         self.dungeon = self.create_dungeon()
         self.narrative = Narrative()
         self.current_battle = 0  # Para llevar el control de los combates
+        self.items = self.create_items()
 
     def create_player(self):
         player_name = input("Por favor, ingresa el nombre de tu personaje: ")
@@ -43,6 +45,14 @@ class GameController:
     def create_dungeon(self):
         return Dungeon("Mazmorras de la Perdición")
 
+    def create_items(self):
+        # Crear instancias de ítems
+        return [
+            Item("Poción de Salud"),
+            Item("Amuleto de Fuerza"),
+            Item("Escudo Mágico")
+        ]
+
     def start_game(self):
         print(self.narrative.story)
         self.start_battles()
@@ -60,4 +70,13 @@ class GameController:
         print("¡Has completado todas las batallas! Felicitaciones.")
 
     def combat(self, enemies):
-        return turn_based_combat(self.player, self.allies, enemies)
+        result = turn_based_combat(self.player, self.allies, enemies)
+        if result:  # Si el jugador ganó la batalla
+            self.reward_item()  # Llamar a la función para recompensar un ítem
+        return result
+
+    def reward_item(self):
+        if random.randint(1, 100) < 20:  # 20% de probabilidad
+            item = random.choice(self.items)  # Elegir un ítem aleatorio de la lista
+            self.player.items.append(item)  # Agregar el ítem al inventario del jugador
+            print(f"¡Has ganado un nuevo ítem: {item.name}!")
