@@ -1,5 +1,3 @@
-# player.py
-
 import random
 
 class Player:

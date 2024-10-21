@@ -1,7 +1,4 @@
-# enemies.py
-
 import random
-from constantes import ENEMY_TYPES
 
 class Enemy:
     def __init__(self, enemy_type):

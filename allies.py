@@ -1,5 +1,3 @@
-# allies.py
-
 from player import Player
 
 class Ally(Player):

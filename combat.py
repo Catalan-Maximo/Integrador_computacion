@@ -1,6 +1,7 @@
 import random
 
 def turn_based_combat(player, allies, enemies):
+    heroes = [player] + allies
     while True:
         # Turno del jugador
         if player.is_alive():
@@ -17,8 +18,12 @@ def turn_based_combat(player, allies, enemies):
                     continue  # Regresa al inicio del ciclo
 
                 if action == 1:
+                    #Mostrar la vida de tu equipo
+                    team_health = ', '.join([f"{ally.name} (Salud: {ally.health})" for ally in allies if ally.health > 0])
+                    print(f"\nLa vida de tu equipo es: {player.name} (Salud: {player.health}), {team_health}") 
+
                     while True:  # Ciclo para permitir múltiples intentos de ataque
-                        print("\nSelecciona un enemigo para atacar:")
+                        print("Enemigos disponibles:")
                         for i, enemy in enumerate(enemies):
                             print(f"{i + 1}. {enemy.enemy_type} (Salud: {enemy.health})")
 
@@ -33,7 +38,7 @@ def turn_based_combat(player, allies, enemies):
                             target = enemies[target_index]
                             damage = player.strength
                             target.take_damage(damage)
-                            print(f"{player.name} ataca a {target.enemy_type} causando {damage} de daño.")
+                            print(f"{player.name} ataca a {target.enemy_type} causando {damage - target.defense} de daño.")
                             if not target.is_alive():
                                 print(f"{target.enemy_type} ha sido derrotado.")
                                 enemies.remove(target)
@@ -60,6 +65,15 @@ def turn_based_combat(player, allies, enemies):
                                 item = player.items[item_index]
                                 item.effect(player)
                                 print(f"{player.name} usa {item.name}.")
+
+                                #Mostrar aumento de atributo
+                                if item.name == 'Poción de Salud':
+                                    print(f"Salud aumentada a {player.name} en 20. Ahora su salud es: {player.health}")
+                                elif item.name == 'Amuleto de Fuerza':
+                                    print(f"Fuerza aumentada a {player.name} en 5. Ahora su fuerza es: {player.strength}")
+                                elif item.name == 'Escudo Mágico':
+                                    print(f"Defensa aumentada a {player.name} en 5. Ahora su defensa es: {player.defense}")
+
                                 player.items.remove(item)
                                 break  # Salir del ciclo si el ítem se usa correctamente
                             else:
@@ -81,7 +95,7 @@ def turn_based_combat(player, allies, enemies):
                 target = random.choice(enemies)
                 damage = ally.strength
                 target.take_damage(damage)
-                print(f"{ally.name} ataca a {target.enemy_type} causando {damage} de daño.")
+                print(f"{ally.name} ataca a {target.enemy_type} causando {damage - target.defense} de daño.")
                 if not target.is_alive():
                     print(f"{target.enemy_type} ha sido derrotado.")
                     enemies.remove(target)
@@ -94,17 +108,19 @@ def turn_based_combat(player, allies, enemies):
 
         # Turno de los enemigos
         for enemy in enemies:
-            if enemy.is_alive():
-                target = random.choice(allies + [player])
+            # Verificar si todos los personajes han sido derrotados
+            if not any(ally.is_alive() for ally in allies) and not player.is_alive():
+                return False
+            elif enemy.is_alive():
+                target = random.choice(heroes)
                 damage = enemy.strength
                 target.take_damage(damage)
-                print(f"{enemy.enemy_type} ataca a {target.name} causando {damage} de daño.")
+                print(f"{enemy.enemy_type} ataca a {target.name} causando {damage - target.defense} de daño.")
                 if not target.is_alive():
                     print(f"{target.name} ha sido derrotado.")
-                    allies.remove(target)
+                    heroes.remove(target)
 
         # Verificar si todos los personajes han sido derrotados
         if not any(ally.is_alive() for ally in allies) and not player.is_alive():
-            print("¡Has perdido la batalla!")
             return False
         

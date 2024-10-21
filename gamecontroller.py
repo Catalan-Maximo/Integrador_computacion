@@ -1,4 +1,3 @@
-# game_controller.py
 import random
 from player import Player
 from allies import Ally
@@ -6,10 +5,11 @@ from combat import turn_based_combat
 from dungeons import Dungeon
 from narrative import Narrative
 from Items import Item
+from constantes import PLAYER_CLASSES
 
 class GameController:
     def __init__(self):
-        print("¡Bienvenido al juego de aventura!")
+        print("¡Bienvenido a este fantastico juego de rol!")
         self.player = self.create_player()
         self.allies = self.create_allies()
         self.dungeon = self.create_dungeon()
@@ -40,10 +40,10 @@ class GameController:
         return Player(player_name, player_class)
 
     def create_allies(self):
-        return [Ally("Aliado 1", "Guerrero"), Ally("Aliado 2", "Mago")]
+        return [Ally("Aliado 1", random.choice(PLAYER_CLASSES)), Ally("Aliado 2", random.choice(PLAYER_CLASSES))]
 
     def create_dungeon(self):
-        return Dungeon("Mazmorras de la Perdición")
+        return Dungeon("Global Dungeon")
 
     def create_items(self):
         # Crear instancias de ítems
@@ -76,7 +76,7 @@ class GameController:
         return result
 
     def reward_item(self):
-        if random.randint(1, 100) < 20:  # 20% de probabilidad
+        if random.randint(1, 100) < 35:  # 35% de probabilidad
             item = random.choice(self.items)  # Elegir un ítem aleatorio de la lista
             self.player.items.append(item)  # Agregar el ítem al inventario del jugador
             print(f"¡Has ganado un nuevo ítem: {item.name}!")
