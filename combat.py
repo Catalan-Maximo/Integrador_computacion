@@ -1,10 +1,14 @@
 import random
+import os
+import time
 
 def turn_based_combat(player, allies, enemies):
     heroes = [player] + allies
     while True:
         # Turno del jugador
         if player.is_alive():
+            time.sleep(3)
+            os.system('cls')
             while True:
                 print("\nSelecciona una acción:")
                 print("1. Atacar")
@@ -15,23 +19,27 @@ def turn_based_combat(player, allies, enemies):
                     action = int(action_input)
                 else:
                     print("Entrada inválida. Por favor, ingresa un número.")
+                    time.sleep(2)
+                    os.system('cls')
                     continue  # Regresa al inicio del ciclo
 
                 if action == 1:
-                    #Mostrar la vida de tu equipo
-                    team_health = ', '.join([f"{ally.name} (Salud: {ally.health})" for ally in allies if ally.health > 0])
-                    print(f"\nLa vida de tu equipo es: {player.name} (Salud: {player.health}), {team_health}") 
-
                     while True:  # Ciclo para permitir múltiples intentos de ataque
+                        os.system('cls')
+                        #Mostrar la vida de tu equipo
+                        team_health = ', '.join([f"{ally.name} (Salud: {ally.health})" for ally in allies if ally.health > 0])
+                        print(f"\nLa vida de tu equipo es: {player.name} (Salud: {player.health}), {team_health}") 
                         print("Enemigos disponibles:")
                         for i, enemy in enumerate(enemies):
                             print(f"{i + 1}. {enemy.enemy_type} (Salud: {enemy.health})")
 
-                        target_input = input("Selecciona el número del enemigo: ")
+                        target_input = input("Selecciona el número del enemigo para atacar: ")
                         if target_input.isdigit():  # Verifica si la entrada es un número
                             target_index = int(target_input) - 1
                         else:
                             print("Entrada inválida. Por favor, ingresa un número.")
+                            time.sleep(2)
+                            os.system('cls')
                             continue  # Regresa al inicio del ciclo
 
                         if 0 <= target_index < len(enemies):
@@ -45,9 +53,12 @@ def turn_based_combat(player, allies, enemies):
                             break  # Salir del ciclo si el ataque es exitoso
                         else:
                             print("Selección inválida. Por favor, selecciona un enemigo válido.")
+                            time.sleep(2)
+                            os.system('cls')
                     break  # Salir del ciclo de acción si la acción es válida
 
                 elif action == 2:
+                    os.system('cls')
                     if player.has_items():  # Verifica si hay ítems disponibles
                         while True:  # Ciclo para permitir múltiples intentos de usar ítem
                             print("\nSelecciona un ítem para usar:")
@@ -59,6 +70,8 @@ def turn_based_combat(player, allies, enemies):
                                 item_index = int(item_input) - 1
                             else:
                                 print("Entrada inválida. Por favor, ingresa un número.")
+                                time.sleep(2)
+                                os.system('cls')
                                 continue  # Regresa al inicio del ciclo
 
                             if 0 <= item_index < len(player.items):
@@ -78,11 +91,17 @@ def turn_based_combat(player, allies, enemies):
                                 break  # Salir del ciclo si el ítem se usa correctamente
                             else:
                                 print("Selección inválida. Intenta de nuevo.")
+                                time.sleep(2)
+                                os.system('cls')
                     else:
                         print(f"{player.name} no tiene ítems. Debes atacar.")
+                        time.sleep(2)
+                        os.system('cls')
 
                 else:
                     print("Selección inválida. Intenta de nuevo.")
+                    time.sleep(2)
+                    os.system('cls')
 
         # Verificar si los enemigos han sido derrotados
         if not enemies:

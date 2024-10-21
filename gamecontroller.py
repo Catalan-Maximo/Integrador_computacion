@@ -1,3 +1,5 @@
+import os
+import time
 import random
 from player import Player
 from allies import Ally
@@ -5,11 +7,12 @@ from combat import turn_based_combat
 from dungeons import Dungeon
 from narrative import Narrative
 from Items import Item
-from constantes import PLAYER_CLASSES
+from constantes import PLAYER_CLASSES, BATTLE_HISTORIES, INTRO_GAME, FINAL_NARRATIVE, TEXT_PLAYER_SELECT
 
 class GameController:
     def __init__(self):
-        print("¡Bienvenido a este fantastico juego de rol!")
+        os.system('cls')
+        print(INTRO_GAME)
         self.player = self.create_player()
         self.allies = self.create_allies()
         self.dungeon = self.create_dungeon()
@@ -20,10 +23,7 @@ class GameController:
     def create_player(self):
         player_name = input("Por favor, ingresa el nombre de tu personaje: ")
         
-        print("Selecciona la clase de tu personaje:")
-        print("1. Guerrero")
-        print("2. Mago")
-        print("3. Arquero")
+        print(TEXT_PLAYER_SELECT)
 
         class_choice = int(input("Selecciona el número de la clase: "))
         
@@ -54,20 +54,28 @@ class GameController:
         ]
 
     def start_game(self):
+        os.system('cls')
         print(self.narrative.story)
         self.start_battles()
 
     def start_battles(self):
         battles = self.dungeon.get_battles()  # Método que devuelve los enemigos de cada combate
 
-        for enemies in battles:
+        for index, enemies in enumerate(battles):
+            time.sleep(7)
+            os.system('cls')
+            print(BATTLE_HISTORIES[index])  # Muestra la narrativa de la batalla correspondiente
+            time.sleep(4)
+            os.system('cls')
             print(f"¡Prepárate para la batalla {self.current_battle + 1}!")
+
             if not self.combat(enemies):
                 print("¡Has perdido la batalla! Fin del juego.")
                 return
             self.current_battle += 1
 
-        print("¡Has completado todas las batallas! Felicitaciones.")
+        time.sleep(1)
+        print(FINAL_NARRATIVE)
 
     def combat(self, enemies):
         result = turn_based_combat(self.player, self.allies, enemies)
