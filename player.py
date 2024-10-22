@@ -4,28 +4,28 @@ class Player:
     def __init__(self, name, player_class):
         self.name = name
         self.player_class = player_class
-        self.health = 100
-        self.strength = 10
-        self.defense = 5
+        self.health = 120  
+        self.strength = 12  
+        self.defense = 8  
         self.level = 1
         self.experience = 0
         self.items = []
 
         if player_class == 'Guerrero':
-            self.strength += 5
+            self.strength += 6
             self.defense += 5
         elif player_class == 'Mago':
-            self.strength += 2
-            self.health += 20
-        elif player_class == 'Arquero':
             self.strength += 3
-            self.defense += 2
+            self.health += 30
+        elif player_class == 'Arquero':
+            self.strength += 4
+            self.defense += 3
 
     def level_up(self):
         self.level += 1
-        self.health += random.randint(5, 10)
-        self.strength += random.randint(2, 5)
-        self.defense += random.randint(1, 3)
+        self.health += random.randint(8, 13)
+        self.strength += random.randint(4, 7)
+        self.defense += random.randint(2, 5)
         print(f"{self.name} ha subido al nivel {self.level}!")
         print(f"Tus nuevas estadisticas son: Salud: {self.health}, Fuerza: {self.strength}, Defensa: {self.defense}")
 

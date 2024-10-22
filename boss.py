@@ -3,9 +3,9 @@ import random
 class Boss:
     def __init__(self, enemy_type):
         self.enemy_type = enemy_type
-        self.health = 150
-        self.strength = random.randint(15, 25)
-        self.defense = random.randint(5, 10)
+        self.health = random.randint(150, 200)
+        self.strength = random.randint(20, 30)
+        self.defense = random.randint(9, 14)
 
     def take_damage(self, damage):
         actual_damage = max(0, damage - self.defense)
