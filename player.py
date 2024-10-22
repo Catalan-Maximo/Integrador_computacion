@@ -26,6 +26,14 @@ class Player:
         self.health += random.randint(5, 10)
         self.strength += random.randint(2, 5)
         self.defense += random.randint(1, 3)
+        print(f"{self.name} ha subido al nivel {self.level}!")
+        print(f"Tus nuevas estadisticas son: Salud: {self.health}, Fuerza: {self.strength}, Defensa: {self.defense}")
+
+    def add_experience(self, amount):
+        self.experience += amount
+        while self.experience >= 100:
+            self.experience -= 100
+            self.level_up()
 
     def take_damage(self, damage):
         self.health -= max(0, damage - self.defense)

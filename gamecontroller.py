@@ -62,10 +62,10 @@ class GameController:
         battles = self.dungeon.get_battles()  # Método que devuelve los enemigos de cada combate
 
         for index, enemies in enumerate(battles):
-            time.sleep(7)
+            time.sleep(10)
             os.system('cls')
             print(BATTLE_HISTORIES[index])  # Muestra la narrativa de la batalla correspondiente
-            time.sleep(4)
+            time.sleep(6)
             os.system('cls')
             print(f"¡Prepárate para la batalla {self.current_battle + 1}!")
 

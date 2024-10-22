@@ -6,3 +6,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+"""
+Solo falta balancear los atributos
+"""
