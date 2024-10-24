@@ -1,6 +1,7 @@
 import random
 import os
 import time
+from constantes import *
 
 def turn_based_combat(player, allies, enemies):
     heroes = [player] + allies
@@ -11,15 +12,13 @@ def turn_based_combat(player, allies, enemies):
             time.sleep(3)
             os.system('cls')
             while True:
-                print("\nSelecciona una acción:")
-                print("1. Atacar")
-                print("2. Usar ítem")
+                print(ACTIONSDIS)
 
-                action_input = input("Selecciona el número de la acción: ")
+                action_input = input(ACTIONINT)
                 if action_input.isdigit():  # Verifica si la entrada es un número
                     action = int(action_input)
                 else:
-                    print("Entrada inválida. Por favor, ingresa un número.")
+                    print(INVALIDENTRY_NUM)
                     time.sleep(2)
                     os.system('cls')
                     continue  # Regresa al inicio del ciclo
@@ -30,15 +29,15 @@ def turn_based_combat(player, allies, enemies):
                         #Mostrar la vida de tu equipo
                         team_health = ', '.join([f"{ally.name} (Salud: {ally.health})" for ally in allies if ally.health > 0])
                         print(f"\nLa vida de tu equipo es: {player.name} (Salud: {player.health}), {team_health}") 
-                        print("Enemigos disponibles:")
+                        print(ENEMYDISP)
                         for i, enemy in enumerate(enemies):
-                            print(f"{i + 1}. {enemy.enemy_type} (Salud: {enemy.health})")
+                            print(f"{i + 1}. {enemy.name} (Salud: {enemy.health})")
 
-                        target_input = input("Selecciona el número del enemigo para atacar: ")
+                        target_input = input(SELECTENEMY)
                         if target_input.isdigit():  # Verifica si la entrada es un número
                             target_index = int(target_input) - 1
                         else:
-                            print("Entrada inválida. Por favor, ingresa un número.")
+                            print(INVALIDENTRY_NUM)
                             time.sleep(2)
                             os.system('cls')
                             continue  # Regresa al inicio del ciclo
@@ -47,13 +46,13 @@ def turn_based_combat(player, allies, enemies):
                             target = enemies[target_index]
                             damage = player.strength
                             target.take_damage(damage)
-                            print(f"{player.name} ataca a {target.enemy_type} causando {damage - target.defense} de daño.")
+                            print(f"{player.name} ataca a {target.name} causando {damage - target.defense} de daño.")
                             if not target.is_alive():
-                                print(f"{target.enemy_type} ha sido derrotado.")
+                                print(f"{target.name} ha sido derrotado.")
                                 enemies.remove(target)
                             break  # Salir del ciclo si el ataque es exitoso
                         else:
-                            print("Selección inválida. Por favor, selecciona un enemigo válido.")
+                            print(INVALIDENTRY_ENEMY)
                             time.sleep(2)
                             os.system('cls')
                     break  # Salir del ciclo de acción si la acción es válida
@@ -62,15 +61,15 @@ def turn_based_combat(player, allies, enemies):
                     os.system('cls')
                     if player.has_items():  # Verifica si hay ítems disponibles
                         while True:  # Ciclo para permitir múltiples intentos de usar ítem
-                            print("\nSelecciona un ítem para usar:")
+                            print(ITEMSDISP)
                             for i, item in enumerate(player.items):
                                 print(f"{i + 1}. {item.name}")
 
-                            item_input = input("Selecciona el número del ítem: ")
+                            item_input = input(SELECTITEM)
                             if item_input.isdigit():  # Verifica si la entrada es un número
                                 item_index = int(item_input) - 1
                             else:
-                                print("Entrada inválida. Por favor, ingresa un número.")
+                                print(INVALIDENTRY_NUM)
                                 time.sleep(2)
                                 os.system('cls')
                                 continue  # Regresa al inicio del ciclo
@@ -91,7 +90,7 @@ def turn_based_combat(player, allies, enemies):
                                 player.items.remove(item)
                                 break  # Salir del ciclo si el ítem se usa correctamente
                             else:
-                                print("Selección inválida. Intenta de nuevo.")
+                                print(INVALIDENTRY)
                                 time.sleep(2)
                                 os.system('cls')
                     else:
@@ -100,13 +99,13 @@ def turn_based_combat(player, allies, enemies):
                         os.system('cls')
 
                 else:
-                    print("Selección inválida. Intenta de nuevo.")
+                    print(INVALIDENTRY)
                     time.sleep(2)
                     os.system('cls')
 
         # Verificar si los enemigos han sido derrotados
         if not enemies:
-            print("¡Has ganado la batalla!")
+            print(WINCOMBAT)
             experiencia_ganada = 35 * total_enemies # Calcular la experiencia ganada, 35xp por enemigo
             print(f"Has ganado {experiencia_ganada} puntos de experiencia.")
             player.add_experience(experiencia_ganada)
@@ -118,14 +117,14 @@ def turn_based_combat(player, allies, enemies):
                 target = random.choice(enemies)
                 damage = ally.strength
                 target.take_damage(damage)
-                print(f"{ally.name} ataca a {target.enemy_type} causando {damage - target.defense} de daño.")
+                print(f"{ally.name} ataca a {target.name} causando {damage - target.defense} de daño.")
                 if not target.is_alive():
-                    print(f"{target.enemy_type} ha sido derrotado.")
+                    print(f"{target.name} ha sido derrotado.")
                     enemies.remove(target)
 
         # Verificar si los enemigos han sido derrotados
         if not enemies:
-            print("¡Has ganado la batalla!")
+            print(WINCOMBAT)
             experiencia_ganada = 35 * total_enemies # Calcular la experiencia ganada, 35xp por enemigo
             print(f"Has ganado {experiencia_ganada} puntos de experiencia.")
             player.add_experience(experiencia_ganada)
@@ -140,7 +139,7 @@ def turn_based_combat(player, allies, enemies):
                 target = random.choice(heroes)
                 damage = enemy.strength
                 target.take_damage(damage)
-                print(f"{enemy.enemy_type} ataca a {target.name} causando {damage - target.defense} de daño.")
+                print(f"{enemy.name} ataca a {target.name} causando {damage - target.defense} de daño.")
                 if not target.is_alive():
                     print(f"{target.name} ha sido derrotado.")
                     heroes.remove(target)

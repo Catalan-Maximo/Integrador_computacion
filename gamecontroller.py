@@ -7,7 +7,7 @@ from combat import turn_based_combat
 from dungeons import Dungeon
 from narrative import Narrative
 from Items import Item
-from constantes import PLAYER_CLASSES, BATTLE_HISTORIES, INTRO_GAME, FINAL_NARRATIVE, TEXT_PLAYER_SELECT
+from constantes import *
 
 class GameController:
     def __init__(self):
@@ -21,11 +21,11 @@ class GameController:
         self.items = self.create_items()
 
     def create_player(self):
-        player_name = input("Por favor, ingresa el nombre de tu personaje: ")
+        player_name = input(PLNAME_CREATOR)
         
         print(TEXT_PLAYER_SELECT)
 
-        class_choice = int(input("Selecciona el número de la clase: "))
+        class_choice = int(input(CLASSSEL))
         
         if class_choice == 1:
             player_class = "Guerrero"
@@ -34,7 +34,7 @@ class GameController:
         elif class_choice == 3:
             player_class = "Arquero"
         else:
-            print("Selección inválida. Se asignará la clase Guerrero por defecto.")
+            print(INVALIDSELPLAYER)
             player_class = "Guerrero"
 
         return Player(player_name, player_class)
@@ -43,7 +43,7 @@ class GameController:
         return [Ally("Aliado 1", random.choice(PLAYER_CLASSES)), Ally("Aliado 2", random.choice(PLAYER_CLASSES))]
 
     def create_dungeon(self):
-        return Dungeon("Global Dungeon")
+        return Dungeon("Cripta del Olvido")
 
     def create_items(self):
         # Crear instancias de ítems
@@ -70,7 +70,7 @@ class GameController:
             print(f"¡Prepárate para la batalla {self.current_battle + 1}!")
 
             if not self.combat(enemies):
-                print("¡Has perdido la batalla! Fin del juego.")
+                print(LOSECOMBAT)
                 return
             self.current_battle += 1
 

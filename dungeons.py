@@ -16,6 +16,7 @@ class Dungeon:
             [Enemy(random.choice(DUNGEON2_ENEMIES)) for _ in range(random.randint(3, 5))],  # Batalla 3
             [Enemy(random.choice(DUNGEON2_ENEMIES)) for _ in range(random.randint(3, 5))],  # Batalla 4
             [Enemy(random.choice(DUNGEON3_ENEMIES)) for _ in range(random.randint(3, 5))],  # Batalla 5
+            [Enemy(random.choice(DUNGEON3_ENEMIES)) for _ in range(random.randint(3, 5))],  # Batalla 6
             [Boss("Orc")]   # Batalla final
             ]
 

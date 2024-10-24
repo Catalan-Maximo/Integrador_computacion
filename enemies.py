@@ -3,6 +3,7 @@ import random
 class Enemy:
     def __init__(self, enemy_type):
         self.enemy_type = enemy_type
+        self.name = enemy_type
         self.health = random.randint(60, 120)
         self.strength = random.randint(11, 20)
         self.defense = random.randint(0, 7)
