@@ -9,6 +9,7 @@ class Player:
         self.defense = 8  
         self.level = 1
         self.experience = 0
+        self.xp_objetive = 100
         self.items = []
 
         if player_class == 'Guerrero':
@@ -23,17 +24,18 @@ class Player:
 
     def level_up(self):
         self.level += 1
-        self.health += random.randint(8, 13)
-        self.strength += random.randint(4, 7)
-        self.defense += random.randint(2, 5)
+        self.health = self.health*1.15
+        self.strength = self.strength*1.15
+        self.defense = self.defense*1.15
         print(f"{self.name} ha subido al nivel {self.level}!")
         print(f"Tus nuevas estadisticas son: Salud: {self.health}, Fuerza: {self.strength}, Defensa: {self.defense}")
 
     def add_experience(self, amount):
         self.experience += amount
-        while self.experience >= 100:
-            self.experience -= 100
+        while self.experience >= self.xp_objetive:
+            self.experience -= self.xp_objetive
             self.level_up()
+            self.xp_objetive = (self.xp_objetive * 1.2)
 
     def take_damage(self, damage):
         self.health -= max(0, damage - self.defense)

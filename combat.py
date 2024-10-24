@@ -7,10 +7,10 @@ def turn_based_combat(player, allies, enemies):
     heroes = [player] + allies
     total_enemies = len(enemies)
     while True:
+        time.sleep(5)
+        os.system('cls')
         # Turno del jugador
         if player.is_alive():
-            time.sleep(3)
-            os.system('cls')
             while True:
                 print(ACTIONSDIS)
 
@@ -106,7 +106,7 @@ def turn_based_combat(player, allies, enemies):
         # Verificar si los enemigos han sido derrotados
         if not enemies:
             print(WINCOMBAT)
-            experiencia_ganada = 35 * total_enemies # Calcular la experiencia ganada, 35xp por enemigo
+            experiencia_ganada = 30 * total_enemies # Calcular la experiencia ganada, 35xp por enemigo
             print(f"Has ganado {experiencia_ganada} puntos de experiencia.")
             player.add_experience(experiencia_ganada)
             return True
@@ -125,9 +125,10 @@ def turn_based_combat(player, allies, enemies):
         # Verificar si los enemigos han sido derrotados
         if not enemies:
             print(WINCOMBAT)
-            experiencia_ganada = 35 * total_enemies # Calcular la experiencia ganada, 35xp por enemigo
+            experiencia_ganada = 30 * total_enemies # Calcular la experiencia ganada, 35xp por enemigo
             print(f"Has ganado {experiencia_ganada} puntos de experiencia.")
             player.add_experience(experiencia_ganada)
+            
             return True
 
         # Turno de los enemigos

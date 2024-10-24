@@ -12,6 +12,9 @@ from constantes import *
 class GameController:
     def __init__(self):
         os.system('cls')
+        print(GAME_TITLE)
+        time.sleep(5)
+        os.system('cls')
         print(INTRO_GAME)
         self.player = self.create_player()
         self.allies = self.create_allies()
@@ -24,20 +27,26 @@ class GameController:
         player_name = input(PLNAME_CREATOR)
         
         print(TEXT_PLAYER_SELECT)
-
-        class_choice = int(input(CLASSSEL))
         
-        if class_choice == 1:
-            player_class = "Guerrero"
-        elif class_choice == 2:
-            player_class = "Mago"
-        elif class_choice == 3:
-            player_class = "Arquero"
-        else:
-            print(INVALIDSELPLAYER)
-            player_class = "Guerrero"
+        try:
+            class_choice = int(input(CLASSSEL))
+            
+            if class_choice == 1:
+                player_class = "Guerrero"
+            elif class_choice == 2:
+                player_class = "Mago"
+            elif class_choice == 3:
+                player_class = "Arquero"
+            else:
+                print(INVALIDSELPLAYER)
+                player_class = "Guerrero"
+                time.sleep(2)
 
-        return Player(player_name, player_class)
+            return Player(player_name, player_class)
+        except ValueError:
+            print(INVALIDSELPLAYER)
+            time.sleep(2)
+            return Player(player_name, "Guerrero")
 
     def create_allies(self):
         return [Ally("Aliado 1", random.choice(PLAYER_CLASSES)), Ally("Aliado 2", random.choice(PLAYER_CLASSES))]
@@ -56,16 +65,18 @@ class GameController:
     def start_game(self):
         os.system('cls')
         print(self.narrative.story)
+        time.sleep(30)
+        os.system('cls')
         self.start_battles()
 
     def start_battles(self):
         battles = self.dungeon.get_battles()  # Método que devuelve los enemigos de cada combate
 
         for index, enemies in enumerate(battles):
-            time.sleep(10)
+            time.sleep(5)
             os.system('cls')
             print(BATTLE_HISTORIES[index])  # Muestra la narrativa de la batalla correspondiente
-            time.sleep(6)
+            time.sleep(15)
             os.system('cls')
             print(f"¡Prepárate para la batalla {self.current_battle + 1}!")
 
@@ -74,7 +85,8 @@ class GameController:
                 return
             self.current_battle += 1
 
-        time.sleep(1)
+        time.sleep(5)
+        os.system('cls')
         print(FINAL_NARRATIVE)
 
     def combat(self, enemies):

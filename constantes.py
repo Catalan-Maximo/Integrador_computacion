@@ -24,6 +24,7 @@ ENEMYDISP = "\nEnemigos disponibles:"
 SELECTENEMY = "Selecciona el número del enemigo para atacar: "
 ITEMSDISP = "\nItems disponibles:"
 SELECTITEM = "Selecciona el número del ítem: "
+GAME_TITLE = "La Ascensión de los Héroes Eternos"
 INTRO_GAME = ("¡Bienvenido a este fantastico juego de rol!\n"
               "Creemos tu personaje y dejemoslo listo para la batalla"
               )
