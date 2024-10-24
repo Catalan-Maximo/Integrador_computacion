@@ -17,4 +17,4 @@ class Enemy:
         return self.health > 0
 
     def __str__(self):
-        return f"{self.enemy_type} (Salud: {self.health})"
+        return f"{self.name} (Salud: {self.health})"
