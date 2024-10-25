@@ -46,7 +46,10 @@ def turn_based_combat(player, allies, enemies):
                             target = enemies[target_index]
                             damage = player.strength
                             target.take_damage(damage)
-                            print(f"{player.name} ataca a {target.name} causando {damage - target.defense} de daño.")
+                            if damage - target.defense < 0:
+                                print(f"{player.name} ataca a {target.name} pero no logra hacer daño.")
+                            else:
+                                print(f"{player.name} ataca a {target.name} causando {damage - target.defense} de daño.")
                             if not target.is_alive():
                                 print(f"{target.name} ha sido derrotado.")
                                 enemies.remove(target)
@@ -117,7 +120,10 @@ def turn_based_combat(player, allies, enemies):
                 target = random.choice(enemies)
                 damage = ally.strength
                 target.take_damage(damage)
-                print(f"{ally.name} ataca a {target.name} causando {damage - target.defense} de daño.")
+                if damage - target.defense < 0:
+                    print(f"{ally.name} ataca a {target.name} pero no logra hacer daño.")
+                else:
+                    print(f"{ally.name} ataca a {target.name} causando {damage - target.defense} de daño.")
                 if not target.is_alive():
                     print(f"{target.name} ha sido derrotado.")
                     enemies.remove(target)
@@ -140,7 +146,10 @@ def turn_based_combat(player, allies, enemies):
                 target = random.choice(heroes)
                 damage = enemy.strength
                 target.take_damage(damage)
-                print(f"{enemy.name} ataca a {target.name} causando {damage - target.defense} de daño.")
+                if damage - target.defense < 0:
+                    print(f"{enemy.name} ataca a {target.name} pero no logra hacer daño.")
+                else:
+                    print(f"{enemy.name} ataca a {target.name} causando {damage - target.defense} de daño.")
                 if not target.is_alive():
                     print(f"{target.name} ha sido derrotado.")
                     heroes.remove(target)
