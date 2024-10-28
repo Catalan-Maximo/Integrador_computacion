@@ -53,7 +53,7 @@ def turn_based_combat(player, allies, enemies):
                             target.take_damage(damage)
                             
                             # Verifica si el daño supera la defensa del enemigo
-                            if damage - target.defense < 0:
+                            if damage - target.defense <= 0:
                                 print(f"{player.name} ataca a {target.name} pero no logra hacer daño.")
                             else:
                                 print(f"{player.name} ataca a {target.name} causando {damage - target.defense} de daño.")
@@ -127,7 +127,7 @@ def turn_based_combat(player, allies, enemies):
                 target = random.choice(enemies)
                 damage = ally.strength
                 target.take_damage(damage)
-                if damage - target.defense < 0:
+                if damage - target.defense <= 0:
                     print(f"{ally.name} ataca a {target.name} pero no logra hacer daño.")
                 else:
                     print(f"{ally.name} ataca a {target.name} causando {damage - target.defense} de daño.")
@@ -152,7 +152,7 @@ def turn_based_combat(player, allies, enemies):
                 target = random.choice(heroes)
                 damage = enemy.strength
                 target.take_damage(damage)
-                if damage - target.defense < 0:
+                if damage - target.defense <= 0:
                     print(f"{enemy.name} ataca a {target.name} pero no logra hacer daño.")
                 else:
                     print(f"{enemy.name} ataca a {target.name} causando {damage - target.defense} de daño.")
